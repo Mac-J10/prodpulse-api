@@ -31,6 +31,20 @@ class ProductViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticated]
     serializer_class = ProductSerializer
 
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializer
+
+    def get_queryset(self):
+        qs = super().get_queryset()
+        q = self.request.query_params.get('search')
+        if q:
+            query = SearchQuery(q)
+            qs = qs.annotate(
+                rank=SearchRank('search_vector', query)
+            ).filter(rank__gte=0.1).order_by('-rank')
+        return qs
+
+
     def get_permissions(self):
         if self.action in ['create', 'update', 'partial_update', 'destroy']:
             return [IsAuthenticated(), IsVendor()]

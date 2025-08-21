@@ -1,5 +1,7 @@
 from django.db import models
 from django.utils.text import slugify
+from django.contrib.postgres.search import SearchVectorField
+from django.contrib.postgres.indexes import GinIndex
 
 
 class Category(models.Model):
@@ -28,6 +30,16 @@ class Product(models.Model):
         on_delete=models.PROTECT,
         related_name='products'
     )
+
+    title = models.CharField(max_length=255)
+    description = models.TextField()
+    search_vector = SearchVectorField(null=True)
+
+    class Meta:
+        indexes = [
+            GinIndex(fields=['search_vector']),
+        ]
+
     description = models.TextField(blank=True)
     metadata = models.JSONField(default=dict, blank=True)
 
