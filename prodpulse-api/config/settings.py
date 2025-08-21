@@ -44,7 +44,12 @@ INSTALLED_APPS = [
     'apps.products',
     'apps.pulses',
     'rest_framework_simplejwt.token_blacklist',
+    'channels',
 ]
+
+ASGI_APPLICATION = "core.asgi.application"
+
+
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (

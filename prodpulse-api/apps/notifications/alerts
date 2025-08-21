@@ -1,0 +1,20 @@
+from django.core.mail import send_mail
+from asgiref.sync import sync_to_async
+from apps.notifications.services import send_email_async, send_sms_async
+import asyncio
+
+async def main():
+    await send_email_async("admin@prodpulse.io", "High Metric Alert", "Value exceeded threshold.")
+    await send_sms_async("+254111395016", "⚠️ Metric breach detected on ProdPulse.")
+
+async def send_django_email(to_email: str, subject: str, content: str):
+    await sync_to_async(send_mail)(
+        subject,
+        content,
+        "noreply@prodpulse.io",
+        [to_email],
+        fail_silently=False
+    )
+
+if __name__ == "__main__":
+    asyncio.run(main())

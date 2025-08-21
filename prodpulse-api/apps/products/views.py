@@ -11,6 +11,15 @@ from .serializers import (
 )
 from apps.pulses.models import Pulse
 from apps.pulses.serializers import PulseSerializer
+from rest_framework.views import APIView
+import httpx
+
+class ProductMetricsView(APIView):
+    async def get(self, request, product_id):
+        async with httpx.AsyncClient() as client:
+            response = await client.get(f"https://external.api/metrics/{product_id}")
+        data = response.json()
+        return Response(data)
 
 class CategoryViewSet(viewsets.ModelViewSet):
     queryset = Category.objects.all()
