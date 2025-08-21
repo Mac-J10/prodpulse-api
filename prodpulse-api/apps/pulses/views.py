@@ -8,6 +8,10 @@ import httpx
 from rest_framework.views import APIView
 from rest_framework.response import Response
 
+from channels.layers import get_channel_layer
+from asgiref.sync import async_to_sync
+
+
 class ExternalMetricIngestView(APIView):
     permission_classes = [IsAuthenticated]
 
@@ -31,3 +35,19 @@ class PulseViewSet(viewsets.ModelViewSet):
     queryset = Pulse.objects.select_related('product').all()
     serializer_class = PulseSerializer
     permission_classes = [IsAuthenticated, IsAdminOrVendor]
+
+def broadcast_pulse(pulse):
+    channel_layer = get_channel_layer()
+    async_to_sync(channel_layer.group_send)(
+        "pulse_stream",
+        {
+            "type": "send_pulse",
+            "data": {
+                "product_id": pulse.product_id,
+                "value": pulse.value,
+                "timestamp": pulse.timestamp.isoformat(),
+                "unit": pulse.unit,
+    
+            }
+        }
+    )
