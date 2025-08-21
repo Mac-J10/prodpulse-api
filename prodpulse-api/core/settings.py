@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'apps.pulses',
     'rest_framework_simplejwt.token_blacklist',
     'channels',
+    'core'
 ]
 
 ASGI_APPLICATION = "core.asgi.application"
