@@ -9,8 +9,23 @@ https://docs.djangoproject.com/en/5.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.2/ref/settings/
 """
-
+import os
 from pathlib import Path
+
+from django.apps import apps
+
+import environ
+from django.core.exceptions import ImproperlyConfigured
+
+# Point to a .env file loaded outside version control
+env = environ.Env()
+environ.Env.read_env(env_file='/etc/myapp/.env')
+
+# Fetch the key or raise
+STRIPE_API_KEY = env('STRIPE_API_KEY', default=None)
+if not STRIPE_API_KEY:
+    raise ImproperlyConfigured('Missing STRIPE_API_KEY environment variable')
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -45,10 +60,15 @@ INSTALLED_APPS = [
     'apps.pulses',
     'rest_framework_simplejwt.token_blacklist',
     'channels',
-    'core'
+    'core',
+    'anymail',
+    'apps.products',
+    'apps.orders',
 ]
 
 ASGI_APPLICATION = "core.asgi.application"
+
+STRIPE_API_KEY = os.environ.get("STRIPE_API_KEY")
 
 
 
@@ -155,3 +175,11 @@ MEDIA_ROOT = BASE_DIR / 'media'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+import os
+
+ANYMAIL = {
+    "MAILGUN_API_KEY": os.environ.get("MAILGUN_API_KEY"),
+    "MAILGUN_SENDER_DOMAIN": os.environ.get("MAILGUN_DOMAIN"),
+}
+EMAIL_BACKEND = "anymail.backends.mailgun.EmailBackend"

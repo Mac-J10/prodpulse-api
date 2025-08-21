@@ -13,7 +13,16 @@ from apps.pulses.models import Pulse
 from apps.pulses.serializers import PulseSerializer
 from rest_framework.views import APIView
 import httpx
+from apps.analytics.models import ProductView
+from django.db import models
 
+def retrieve(self, request, *args, **kwargs):
+    resp = super().retrieve(request, *args, **kwargs)
+    ProductView.objects.update_or_create(
+        product_id=kwargs['pk'],
+        defaults={'count': models.F('count') + 1}
+    )
+    return resp
 class ProductMetricsView(APIView):
     async def get(self, request, product_id):
         async with httpx.AsyncClient() as client:
