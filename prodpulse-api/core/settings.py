@@ -20,7 +20,7 @@ import environ
 from django.core.exceptions import ImproperlyConfigured
 
 import pdb
-pdb.set_trace()   
+# pdb.set_trace()   
 
 # Point to a .env file loaded outside version control
 env = environ.Env()
