@@ -20,19 +20,34 @@ import environ
 from django.core.exceptions import ImproperlyConfigured
 
 import pdb
-# pdb.set_trace()   
+# pdb.set_trace()  
+
+ BASE_DIR = Path(__file__).resolve().parents[1]   # equivalent to .parent.parent 
 
 # Point to a .env file loaded outside version control
-env = environ.Env()
+env = environ.Env(DEBUG=(bool, False))
+DEBUG = env.bool('DEBUG', default=False)
 environ.Env.read_env(env_file="/etc/myapp/.env")
+
+# 2. Read the .env file if it exists
+env_file = BASE_DIR / ".env"
+if env_file.exists():
+    environ.Env.read_env(env_file)
+
+SECRET_KEY = env('SECRET_KEY', default='unsafe-secret-key')
+DEBUG = env('DEBUG', default=False)
+DATABASES = {
+    'default': env.db('DATABASE_URL', default='sqlite:///db.sqlite3')
+}
 
 # Fetch the key or raise
 STRIPE_API_KEY = env.str('STRIPE_API_KEY', default=None)
 if not STRIPE_API_KEY and not env.bool('DEBUG', default=True):
     raise ImproperlyConfigured('Missing STRIPE_API_KEY environment variable')
 
-if 'DEBUG' and not STRIPE_API_KEY:
+if DEBUG and not STRIPE_API_KEY:
     STRIPE_API_KEY = 'sk_test_localDEMOkey'
+    
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
