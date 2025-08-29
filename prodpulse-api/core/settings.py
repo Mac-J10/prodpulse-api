@@ -22,7 +22,7 @@ from django.core.exceptions import ImproperlyConfigured
 import pdb
 # pdb.set_trace()  
 
- BASE_DIR = Path(__file__).resolve().parents[1]   # equivalent to .parent.parent 
+BASE_DIR = Path(__file__).resolve().parents[1]   # equivalent to .parent.parent 
 
 # Point to a .env file loaded outside version control
 env = environ.Env(DEBUG=(bool, False))
@@ -47,7 +47,7 @@ if not STRIPE_API_KEY and not env.bool('DEBUG', default=True):
 
 if DEBUG and not STRIPE_API_KEY:
     STRIPE_API_KEY = 'sk_test_localDEMOkey'
-    
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
