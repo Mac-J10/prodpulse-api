@@ -24,9 +24,9 @@ env = environ.Env()
 environ.Env.read_env(env_file="/etc/myapp/.env")
 
 # Fetch the key or raise
-STRIPE_API_KEY = env.str("STRIPE_API_KEY")
-if not STRIPE_API_KEY:
-    raise ImproperlyConfigured("Missing STRIPE_API_KEY environment variable")
+STRIPE_API_KEY = env.str('STRIPE_API_KEY', default=None)
+if not STRIPE_API_KEY and not env.bool('DEBUG', default=True):
+    raise ImproperlyConfigured('Missing STRIPE_API_KEY environment variable')
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
