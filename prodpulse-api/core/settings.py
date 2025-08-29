@@ -81,6 +81,7 @@ INSTALLED_APPS = [
     "core",
     "anymail",
     "apps.orders",
+    "products.apps.ProductCatalogConfig",
 ]
 
 ASGI_APPLICATION = "core.asgi.application"
