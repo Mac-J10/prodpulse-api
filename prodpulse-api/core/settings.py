@@ -19,6 +19,9 @@ from django.apps import apps
 import environ
 from django.core.exceptions import ImproperlyConfigured
 
+import pdb
+pdb.set_trace()   
+
 # Point to a .env file loaded outside version control
 env = environ.Env()
 environ.Env.read_env(env_file="/etc/myapp/.env")
@@ -28,7 +31,8 @@ STRIPE_API_KEY = env.str('STRIPE_API_KEY', default=None)
 if not STRIPE_API_KEY and not env.bool('DEBUG', default=True):
     raise ImproperlyConfigured('Missing STRIPE_API_KEY environment variable')
 
-
+if 'DEBUG' and not STRIPE_API_KEY:
+    STRIPE_API_KEY = 'sk_test_localDEMOkey'
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
