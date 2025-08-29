@@ -10,8 +10,8 @@ class Category(models.Model):
     description = models.TextField(blank=True)
 
     class Meta:
-        ordering = ['name']
-        verbose_name_plural = 'categories'
+        ordering = ["name"]
+        verbose_name_plural = "categories"
 
     def save(self, *args, **kwargs):
         if not self.slug:
@@ -26,9 +26,7 @@ class Product(models.Model):
     title = models.CharField(max_length=200)
     sku = models.CharField(max_length=50, unique=True)
     category = models.ForeignKey(
-        Category,
-        on_delete=models.PROTECT,
-        related_name='products'
+        Category, on_delete=models.PROTECT, related_name="products"
     )
 
     title = models.CharField(max_length=255)
@@ -37,7 +35,7 @@ class Product(models.Model):
 
     class Meta:
         indexes = [
-            GinIndex(fields=['search_vector']),
+            GinIndex(fields=["search_vector"]),
         ]
 
     description = models.TextField(blank=True)
@@ -47,10 +45,10 @@ class Product(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
-        ordering = ['title']
+        ordering = ["title"]
         indexes = [
-            models.Index(fields=['sku']),
-            models.Index(fields=['category']),
+            models.Index(fields=["sku"]),
+            models.Index(fields=["category"]),
         ]
 
     def __str__(self):

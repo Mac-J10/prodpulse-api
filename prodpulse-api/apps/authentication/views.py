@@ -3,6 +3,7 @@ from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from .serializers import RegistrationSerializer, LogoutSerializer
 
+
 class RegisterView(generics.CreateAPIView):
     serializer_class = RegistrationSerializer
     permission_classes = [AllowAny]
@@ -12,9 +13,9 @@ class RegisterView(generics.CreateAPIView):
         serializer.is_valid(raise_exception=True)
         user = serializer.save()
         return Response(
-            {"detail": "Registration successful."},
-            status=status.HTTP_201_CREATED
+            {"detail": "Registration successful."}, status=status.HTTP_201_CREATED
         )
+
 
 class LogoutView(generics.GenericAPIView):
     serializer_class = LogoutSerializer
@@ -25,6 +26,5 @@ class LogoutView(generics.GenericAPIView):
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response(
-            {"detail": "Logout successful."},
-            status=status.HTTP_204_NO_CONTENT
+            {"detail": "Logout successful."}, status=status.HTTP_204_NO_CONTENT
         )

@@ -3,6 +3,7 @@ from django.core.mail import send_mail
 from django.conf import settings
 from .models import Product
 
+
 @shared_task
 def send_low_stock_alert(product_id):
     prod = Product.objects.get(pk=product_id)

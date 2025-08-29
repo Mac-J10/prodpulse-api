@@ -8,15 +8,16 @@ from django.db.models import Sum
 
 from apps.orders.models import Order
 
-@api_view(['GET'])
+
+@api_view(["GET"])
 @permission_classes([IsAdminUser])
 def stripe_usage(request):
     data = get_monthly_usage()
     return Response(data)
 
-@api_view(['GET'])
+
+@api_view(["GET"])
 @permission_classes([IsAdminUser])
 def sales_estimate(request):
-    data = Order.objects.aggregate(total_sales=Sum('total_amount'))
+    data = Order.objects.aggregate(total_sales=Sum("total_amount"))
     return Response(data)
-

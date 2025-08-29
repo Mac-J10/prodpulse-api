@@ -22,19 +22,22 @@ class ExternalMetricIngestView(APIView):
 
         # Save to DB (sync ORM wrapped in async)
         from asgiref.sync import sync_to_async
+
         await sync_to_async(Pulse.objects.create)(
             product_id=product_id,
-            timestamp=data['timestamp'],
-            value=data['value'],
-            unit=data.get('unit', 'unit')
+            timestamp=data["timestamp"],
+            value=data["value"],
+            unit=data.get("unit", "unit"),
         )
 
         return Response({"detail": "Metric ingested"}, status=201)
 
+
 class PulseViewSet(viewsets.ModelViewSet):
-    queryset = Pulse.objects.select_related('product').all()
+    queryset = Pulse.objects.select_related("product").all()
     serializer_class = PulseSerializer
     permission_classes = [IsAuthenticated, IsAdminOrVendor]
+
 
 def broadcast_pulse(pulse):
     channel_layer = get_channel_layer()
@@ -47,7 +50,6 @@ def broadcast_pulse(pulse):
                 "value": pulse.value,
                 "timestamp": pulse.timestamp.isoformat(),
                 "unit": pulse.unit,
-    
-            }
-        }
+            },
+        },
     )

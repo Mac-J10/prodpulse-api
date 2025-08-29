@@ -4,13 +4,14 @@ from .tasks import send_low_stock_alert
 from django.dispatch import receiver
 from .models import Product
 
+
 @receiver(post_save, sender=Product)
 def update_search_vector(sender, instance, **kwargs):
-    instance.search_vector = (
-        SearchVector('title', weight='A') +
-        SearchVector('description', weight='B')
+    instance.search_vector = SearchVector("title", weight="A") + SearchVector(
+        "description", weight="B"
     )
-    instance.save(update_fields=['search_vector'])
+    instance.save(update_fields=["search_vector"])
+
 
 @receiver(post_save, sender=Product)
 def low_stock_check(sender, instance, **kwargs):

@@ -1,6 +1,7 @@
 import json
 from channels.generic.websocket import AsyncWebsocketConsumer
 
+
 class PulseStreamConsumer(AsyncWebsocketConsumer):
     async def connect(self):
         await self.channel_layer.group_add("pulse_stream", self.channel_name)
