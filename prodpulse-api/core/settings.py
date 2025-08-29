@@ -26,19 +26,16 @@ BASE_DIR = Path(__file__).resolve().parents[1]   # equivalent to .parent.parent
 
 # Point to a .env file loaded outside version control
 env = environ.Env(DEBUG=(bool, False))
-DEBUG = env.bool('DEBUG', default=False)
-environ.Env.read_env(env_file="/etc/myapp/.env")
+environ.Env.read_env()
 
 # 2. Read the .env file if it exists
 env_file = BASE_DIR / ".env"
 if env_file.exists():
     environ.Env.read_env(env_file)
 
-SECRET_KEY = env('SECRET_KEY', default='unsafe-secret-key')
-DEBUG = env('DEBUG', default=False)
-DATABASES = {
-    'default': env.db('DATABASE_URL', default='sqlite:///db.sqlite3')
-}
+SECRET_KEY = env('SECRET_KEY')
+DEBUG = env('DEBUG')
+DATABASES = {"default": env.db()}
 
 # Fetch the key or raise
 STRIPE_API_KEY = env.str('STRIPE_API_KEY', default=None)
@@ -83,7 +80,6 @@ INSTALLED_APPS = [
     "channels",
     "core",
     "anymail",
-    "apps.products",
     "apps.orders",
 ]
 
