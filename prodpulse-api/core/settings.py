@@ -24,7 +24,7 @@ env = environ.Env()
 environ.Env.read_env(env_file="/etc/myapp/.env")
 
 # Fetch the key or raise
-STRIPE_API_KEY = env("STRIPE_API_KEY", default=None)
+STRIPE_API_KEY = env.str("STRIPE_API_KEY")
 if not STRIPE_API_KEY:
     raise ImproperlyConfigured("Missing STRIPE_API_KEY environment variable")
 
