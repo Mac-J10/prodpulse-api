@@ -97,9 +97,6 @@ DATABASES = {"default": dj_database_url.config(default=os.getenv("DATABASE_URL")
 ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "").split(",")
 DEBUG = os.getenv("DEBUG", "False") == "True"
 
-ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "").split(",")
-DEBUG = os.getenv("DEBUG", "False") == "True"
-
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
