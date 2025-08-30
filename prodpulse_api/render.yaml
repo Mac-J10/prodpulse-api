@@ -1,0 +1,31 @@
+# Enable automatic preview environments for every pull request
+previews:
+  generation: automatic
+
+# Define your web service
+services:
+  - type: web
+    name: prodpulse-api
+    repository: https://github.com/Mac-J10/prodpulse-api
+    branch: main
+    env: python
+    plan: starter
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn prodpulse_api.wsgi:application
+
+    # Link the managed database and expose env vars without committing secrets
+    databases:
+      - prodpulse-db
+    envVars:
+      - key: DJANGO_SETTINGS_MODULE
+        value: prodpulse_api.settings
+      - key: SECRET_KEY
+        sync: false
+      - key: DATABASE_URL
+        sync: false
+
+# Provision a Postgres database for ProdPulse
+databases:
+  - name: prodpulse-db
+    engine: postgresql
+    plan: starter
