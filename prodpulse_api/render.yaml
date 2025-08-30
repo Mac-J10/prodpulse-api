@@ -10,7 +10,14 @@ services:
     branch: main
     env: python
     plan: starter
-    buildCommand: pip install -r requirements.txt
+    runtime: python3.13.4
+
+    # Use Poetry to install deps instead of pip+requirements.txt
+    buildCommand: |
+      curl -sSL https://install.python-poetry.org | python3 -
+      poetry config virtualenvs.create false --local
+      poetry install --no-dev --no-interaction --no-ansi
+
     startCommand: gunicorn prodpulse_api.wsgi:application
 
     # Link the managed database and expose env vars without committing secrets
