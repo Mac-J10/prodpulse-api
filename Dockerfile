@@ -1,11 +1,9 @@
 FROM python:3.11-slim
 
 # Install system deps & Rust toolchain
-RUN apt-get update
-RUN apt-get install -y \ 
-    apt-utils ca-certificates curl build-essential pkg-config libssl-dev
-RUN curl https://sh.rustup.rs -sSf | sh -s -- -y
-RUN apt-get clean && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get install -y \ 
+    apt-utils ca-certificates curl build-essential pkg-config libssl-dev \
+    && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 ENV PATH="/root/.cargo/bin:${PATH}"
 ENV CARGO_HOME="/root/.cargo"
