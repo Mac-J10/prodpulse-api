@@ -12,6 +12,15 @@ ENV CARGO_HOME="/root/.cargo"
 RUN python -m venv /venv
 ENV PATH="/venv/bin:${PATH}"
 
+ENV LC_ALL=C.UTF-8
+ENV LANG=C.UTF-8
+ENV LANGUAGE=C.UTF-8
+
+RUN pip install --upgrade pip \
+    && pip install "poetry==1.7.1" \
+    && poetry config virtualenvs.create false \
+    && poetry install --no-dev --no-interaction --no-ansi
+
 WORKDIR /app
 COPY pyproject.toml poetry.lock /app/
 RUN pip install --upgrade pip \
