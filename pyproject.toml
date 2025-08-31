@@ -2,7 +2,7 @@
 name = "prodpulse-api"
 version = "0.1.0"
 description = "A scalable, real-time Django API for product performance monitoring"
-authors = ["Jay <your-email@example.com>"]
+authors = ["Mac-J10"]
 license = "MIT"
 readme = "README.md"
 packages = [{ include = "prodpulse_api" }]
