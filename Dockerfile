@@ -5,6 +5,7 @@ RUN apt-get update && apt-get install -y \
     apt-utils ca-certificates curl build-essential pkg-config libssl-dev \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
+ENV PYTHONPATH=/app
 ENV DJANGO_SETTINGS_MODULE=prodpulse_api.core.settings
 ENV PATH="/root/.cargo/bin:${PATH}"
 ENV CARGO_HOME="/root/.cargo"
