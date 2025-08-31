@@ -1,9 +1,9 @@
 FROM python:3.11-slim
 
 # Install system deps & Rust toolchain
-RUN apt-get update \
-    && apt-get install -y curl build-essential pkg-config libssl-dev \
-    && curl https://sh.rustup.rs -sSf | sh -s -- -y
+RUN apt-get update
+RUN apt-get install -y curl build-essential pkg-config libssl-dev
+RUN curl https://sh.rustup.rs -sSf | sh -s -- -y
 
 ENV PATH="/root/.cargo/bin:${PATH}"
 ENV CARGO_HOME="/root/.cargo"
@@ -16,17 +16,17 @@ ENV LC_ALL=C.UTF-8
 ENV LANG=C.UTF-8
 ENV LANGUAGE=C.UTF-8
 
-RUN pip install --upgrade pip \
-    && pip install "poetry==1.7.1" \
-    && poetry config virtualenvs.create false \
-    && poetry install --no-dev --no-interaction --no-ansi
+RUN pip install --upgrade pip
+RUN  pip install "poetry==1.7.1"
+RUN poetry config virtualenvs.create false
+RUN poetry install --no-dev --no-interaction --no-ansi
 
 WORKDIR /app
 COPY pyproject.toml poetry.lock /app/
-RUN pip install --upgrade pip \
-    && pip install poetry \
-    && poetry config virtualenvs.create false \
-    && poetry install --no-dev --no-interaction --no-ansi
+RUN pip install --upgrade pip
+RUN  pip install poetry
+RUN  poetry config virtualenvs.create false
+RUN  poetry install --no-dev --no-interaction --no-ansi
 
 COPY . /app
 
