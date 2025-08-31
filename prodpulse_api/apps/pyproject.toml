@@ -1,0 +1,30 @@
+[tool.poetry]
+name = "prodpulse-api"
+version = "0.1.0"
+description = "A scalable, real-time Django API for product performance monitoring"
+authors = ["Jay <your-email@example.com>"]
+license = "MIT"
+readme = "README.md"
+packages = [{ include = "prodpulse_api" }]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+Django = "^5.2"
+djangorestframework = "^3.16"
+djangorestframework-simplejwt = "^5.5"
+gunicorn = "^21.2"
+whitenoise = "^6.6"
+dj-database-url = "^3.0"
+django-environ = "^0.12"
+psycopg2-binary = "^2.9"
+
+[tool.poetry.dev-dependencies]
+black = "^24.4"
+isort = "^5.13"
+pytest = "^8.2"
+pytest-django = "^4.8"
+ipython = "^8.24"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
