@@ -7,6 +7,7 @@ asgiref==3.9.1
 asttokens==3.0.0
 async-lru==2.0.5
 attrs==25.3.0
+azure-keyvault-secrets>=4.5.0
 babel==2.17.0
 beautifulsoup4==4.13.4
 billiard==4.2.1
@@ -102,7 +103,7 @@ pytest-asyncio==1.1.0
 pytest-django==4.11.1
 python-dateutil==2.9.0.post0
 python-json-logger==3.3.0
-pywin32==310
+pywin32==310 ; sys_platform == "win32"
 pywinpty==2.0.15
 PyYAML==6.0.2
 pyzmq==26.4.0
