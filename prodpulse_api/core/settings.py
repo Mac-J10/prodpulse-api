@@ -79,6 +79,7 @@ INSTALLED_APPS = [
     "rest_framework_simplejwt.token_blacklist",
     "channels",
     "core",
+    'apps',
     "anymail",
     "apps.orders",
 ]
