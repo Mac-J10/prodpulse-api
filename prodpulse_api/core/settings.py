@@ -32,6 +32,10 @@ ALLOWED_HOSTS = ["*"]
 # Stripe API key for development
 STRIPE_API_KEY = os.environ.get("STRIPE_API_KEY", "sk_test_localDEMOkey")
 
+env = environ.Env()
+environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
+
+
 
 # Application definition
 
