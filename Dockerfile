@@ -1,31 +1,35 @@
-FROM python:3.11-slim
+FROM python:3.13-alpine
 
-# Install system deps & Rust toolchain
-RUN apt-get update && apt-get install -y \ 
-    apt-utils ca-certificates curl build-essential pkg-config libssl-dev \
-    && apt-get clean && rm -rf /var/lib/apt/lists/*
+# Install build dependencies and runtime libraries
+RUN apk add --no-cache \
+    build-base \
+    libffi-dev \
+    openssl-dev \
+    musl-dev \
+    gcc \
+    python3-dev \
+    cargo
 
-ENV PYTHONPATH=/app
-ENV DJANGO_SETTINGS_MODULE=prodpulse_api.core.settings
-ENV PATH="/root/.cargo/bin:${PATH}"
-ENV CARGO_HOME="/root/.cargo"
-ENV LC_ALL=C.UTF-8
-ENV LANG=C.UTF-8
-ENV LANGUAGE=C.UTF-8
-
+# Set working directory
 WORKDIR /app
-COPY pyproject.toml poetry.lock ./
 
-RUN pip install --upgrade pip \
-    && pip install "poetry==1.7.1" \
-    && poetry config virtualenvs.create false \
-    && poetry install --no-dev --no-interaction --no-ansi \
-    && pip install .
+# Copy requirements and install Python dependencies
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
 
-COPY . /app
+# Copy application code
+COPY . .
 
-# Collect static, run migrations if needed (optional)
-# RUN python manage.py collectstatic --noinput
-# RUN python manage.py migrate
+# Set environment variables (adjust as needed)
+ENV PATH=/root/.cargo/bin:/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin \
+    LANG=C.UTF-8 \
+    LC_ALL=C.UTF-8 \
+    LANGUAGE=C.UTF-8 \
+    DJANGO_SETTINGS_MODULE=prodpulse_api.core.settings \
+    PYTHONPATH=/app
+
+# Expose port
 EXPOSE 8000
+
+# Run the application
 CMD ["gunicorn", "prodpulse_api.wsgi:application", "--bind", "0.0.0.0:8000"]
