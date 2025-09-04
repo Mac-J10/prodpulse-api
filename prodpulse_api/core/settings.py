@@ -12,53 +12,24 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 
 import os
 from pathlib import Path
-import dj_database_url
-
-from django.apps import apps
-
-import environ
-from django.core.exceptions import ImproperlyConfigured
-
-import pdb
-# pdb.set_trace()  
-
-BASE_DIR = Path(__file__).resolve().parents[1]   # equivalent to .parent.parent 
-
-# Point to a .env file loaded outside version control
-env = environ.Env(DEBUG=(bool, False))
-environ.Env.read_env()
-
-# 2. Read the .env file if it exists
-env_file = BASE_DIR / ".env"
-if env_file.exists():
-    environ.Env.read_env(env_file)
-
-SECRET_KEY = env('SECRET_KEY')
-DEBUG = env('DEBUG')
-DATABASES = {"default": env.db()}
-
-# Fetch the key or raise
-STRIPE_API_KEY = env.str('STRIPE_API_KEY', default=None)
-if not STRIPE_API_KEY and not env.bool('DEBUG', default=True):
-    raise ImproperlyConfigured('Missing STRIPE_API_KEY environment variable')
-
-if DEBUG and not STRIPE_API_KEY:
-    STRIPE_API_KEY = 'sk_test_localDEMOkey'
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-f8lo6d=es)emp4qi^sxl0sx&azj!h21s5l6p6*6x@13omu+6g9"
+SECRET_KEY = os.environ.get("SECRET_KEY", "django-insecure-f8lo6d=es)emp4qi^sxl0sx&azj!h21s5l6p6*6x@13omu+6g9")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get("DEBUG", "True") == "True"
 
-ALLOWED_HOSTS = []
+# Allow all hosts for Replit environment
+ALLOWED_HOSTS = ["*"]
+
+# Stripe API key for development
+STRIPE_API_KEY = os.environ.get("STRIPE_API_KEY", "sk_test_localDEMOkey")
 
 
 # Application definition
@@ -73,20 +44,12 @@ INSTALLED_APPS = [
     "apps.api",
     "rest_framework",
     "rest_framework_simplejwt",
-    "apps.users",
     "apps.products",
-    "apps.pulses",
     "rest_framework_simplejwt.token_blacklist",
-    "channels",
-    "core",
-    'apps',
-    "anymail",
-    "apps.orders",
 ]
 
-ASGI_APPLICATION = "core.asgi.application"
+ASGI_APPLICATION = "prodpulse_api.core.asgi.application"
 
-STRIPE_API_KEY = os.environ.get("STRIPE_API_KEY")
 
 
 REST_FRAMEWORK = {
@@ -108,10 +71,13 @@ SIMPLE_JWT = {
     "AUTH_HEADER_TYPES": ("Bearer",),
 }
 
-DATABASES = {"default": dj_database_url.config(conn_max_age=600)}
-
-ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "").split(",")
-DEBUG = os.getenv("DEBUG", "False") == "True"
+# Database configuration - using SQLite for simplicity in Replit
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
+}
 
 
 MIDDLEWARE = [
@@ -125,7 +91,7 @@ MIDDLEWARE = [
     'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
-ROOT_URLCONF = "core.urls"
+ROOT_URLCONF = "prodpulse_api.core.urls"
 
 TEMPLATES = [
     {
@@ -142,7 +108,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = "core.wsgi.application"
+WSGI_APPLICATION = "prodpulse_api.wsgi.application"
 
 
 # Password validation

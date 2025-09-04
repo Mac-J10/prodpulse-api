@@ -26,14 +26,8 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("api/products/", include("apps.products.urls")),
-    path("api/pulses/", include("apps.pulses.urls")),
-    path("api/metrics/", include("apps.pulses.urls")),
-    path("api/auth/", include("rest_framework.urls")),  # For login/logout``
     path("api/", include("apps.api.urls")),
     path("api/token/", TokenObtainPairView.as_view(), name="token_obtain_pair"),
     path("api/token/refresh/", TokenRefreshView.as_view(), name="token_refresh"),
-    path("api/auth/", include("apps.authentication.urls")),
-    path("api/users/", include("apps.users.urls")),
-    path("api/analytics/", include("apps.analytics.urls")),
+    path("api/auth/", include("rest_framework.urls")),  # For login/logout
 ]
