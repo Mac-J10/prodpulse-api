@@ -24,7 +24,24 @@ from rest_framework_simplejwt.views import (
 from django.conf import settings
 from django.conf.urls.static import static
 
+from django.http import JsonResponse
+from django.urls import path, include
+
+def api_root(request):
+    return JsonResponse({
+        "message": "Welcome to ProdPulse API",
+        "version": "0.1.0",
+        "endpoints": {
+            "health": "/api/",
+            "admin": "/admin/",
+            "api_auth": "/api/auth/",
+            "token_obtain": "/api/token/",
+            "token_refresh": "/api/token/refresh/"
+        }
+    })
+
 urlpatterns = [
+    path("", api_root, name="api_root"),
     path("admin/", admin.site.urls),
     path("api/", include("apps.api.urls")),
     path("api/token/", TokenObtainPairView.as_view(), name="token_obtain_pair"),
