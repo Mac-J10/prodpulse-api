@@ -19,7 +19,8 @@ COPY pyproject.toml poetry.lock ./
 RUN pip install --upgrade pip \
     && pip install "poetry==1.7.1" \
     && poetry config virtualenvs.create false \
-    && poetry install --no-dev --no-interaction --no-ansi
+    && poetry install --no-dev --no-interaction --no-ansi \
+    && pip install .
 
 COPY . /app
 
