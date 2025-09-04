@@ -9,17 +9,21 @@ services:
     env: docker
     dockerfilePath: ./Dockerfile
     buildCommand: ""
-    startCommand: ""
+    startCommand: gunicorn prodpulse_api.wsgi:application --bind 0.0.0.0:$PORT
 
-    # Link the managed database and expose env vars without committing secrets
+    # Link the managed database
     databases:
       - prodpulse-db
+
+    # Expose environment variables
     envVars:
+      - key: DATABASE_URL
+        value: postgres://user:pass@hostname:5432/dbname
+
       - key: DJANGO_SETTINGS_MODULE
         value: prodpulse_api.settings
+
       - key: SECRET_KEY
-        sync: false
-      - key: DATABASE_URL
         sync: false
 
 # Provision a Postgres database for ProdPulse
