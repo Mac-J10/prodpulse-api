@@ -76,14 +76,11 @@ SIMPLE_JWT = {
     "AUTH_HEADER_TYPES": ("Bearer",),
 }
 
-# Database configuration - using SQLite for simplicity in Replit
+env = environ.Env()
+environ.Env.read_env()  # This loads the .env file
+
 DATABASES = {
     'default': env.db(),
-
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
 }
 
 
