@@ -1,9 +1,9 @@
 from django.apps import AppConfig
 
-class ProductsConfig(AppConfig):
+class AnalyticsConfig(AppConfig):
     default_auto_field = "django.db.models.BigAutoField"
-    name = "apps.products"
+    name = "apps.analytics"
 
     def ready(self):
-        # Optional: preload product metadata or signal handlers
+        # Optional: import signals or startup logic here
         pass

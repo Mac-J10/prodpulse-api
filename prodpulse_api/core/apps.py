@@ -1,9 +1,9 @@
 from django.apps import AppConfig
 
-class ProductsConfig(AppConfig):
+class CoreConfig(AppConfig):
     default_auto_field = "django.db.models.BigAutoField"
-    name = "apps.products"
+    name = "apps.core"
 
     def ready(self):
-        # Optional: preload product metadata or signal handlers
+        # Optional: load environment checks, secrets, or core hooks
         pass
