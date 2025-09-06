@@ -10,7 +10,7 @@ def api_health_check(request):
     return JsonResponse({"status": "ok", "message": "ProdPulse API is running"})
 
 urlpatterns = [
-    path("auth/", include("authentication.urls")),
+    path("authentication/", include("authentication.urls")),
     path("notifications/", include("notifications.urls")),
     path("orders/", include("orders.urls")),
     path("products/", include("products.urls")),

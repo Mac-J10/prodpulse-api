@@ -193,3 +193,5 @@ ANYMAIL = {
     "MAILGUN_SENDER_DOMAIN": os.environ.get("MAILGUN_DOMAIN"),
 }
 EMAIL_BACKEND = "anymail.backends.mailgun.EmailBackend"
+
+AUTHENTICATION_BACKENDS = ['apps.authentication.backends.MyBackend']
