@@ -56,10 +56,8 @@ INSTALLED_APPS = [
     "apps.analytics"
     "rest_framework",
     "rest_framework_simplejwt",
-    "apps.products",
     "rest_framework_simplejwt.token_blacklist",
     "drf_spectacular",
-    "AppConfig"
 ]
 
 ASGI_APPLICATION = "prodpulse_api.core.asgi.application"
