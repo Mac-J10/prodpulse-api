@@ -28,3 +28,11 @@ ipython = "^8.24"
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.packages]
+include = "prodpulse_api"
+from = "."
+  
+[[tool.poetry.packages]]
+include = "apps"
+from = "."
