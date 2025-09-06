@@ -25,7 +25,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 from django.http import JsonResponse
-from django.urls import path, include
+
 
 def api_root(request):
     return JsonResponse({
@@ -47,4 +47,5 @@ urlpatterns = [
     path("api/token/", TokenObtainPairView.as_view(), name="token_obtain_pair"),
     path("api/token/refresh/", TokenRefreshView.as_view(), name="token_refresh"),
     path("api/auth/", include("rest_framework.urls")),  # For login/logout
+    path("analytics/", include("apps.analytics.urls"))
 ]
