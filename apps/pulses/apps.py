@@ -1,2 +1,5 @@
-def ready(self):
-    import apps.pulses.signals
+from django.apps import AppConfig
+
+class PulsesConfig(AppConfig):
+    default_auto_field = 'django.db.models.BigAutoField'
+    name = 'apps.pulses'
