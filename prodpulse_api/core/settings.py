@@ -46,11 +46,18 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "authentication",
+    "notifications",
+    "orders",
+    "products",
+    "pulses",
+    "users",
     "apps.api",
     "rest_framework",
     "rest_framework_simplejwt",
     "apps.products",
     "rest_framework_simplejwt.token_blacklist",
+    "drf_spectacular",
 ]
 
 ASGI_APPLICATION = "prodpulse_api.core.asgi.application"
@@ -65,6 +72,7 @@ REST_FRAMEWORK = {
     "DEFAULT_FILTER_BACKENDS": ("django_filters.rest_framework.DjangoFilterBackend",),
     "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
     "PAGE_SIZE": 10,
+    "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
 }
 
 # Simple JWT settings (optional tweaks)

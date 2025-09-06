@@ -1,9 +1,9 @@
 from rest_framework.routers import DefaultRouter
-from .views import PulseViewSet
+from .views import OrderViewSet
 from django.urls import path, include
 
 router = DefaultRouter()
-router.register(r"", PulseViewSet, basename="pulse")
+router.register(r"", OrderViewSet, basename="order")
 
 urlpatterns = [
     path("", include(router.urls)),

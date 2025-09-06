@@ -1,9 +1,9 @@
 from rest_framework.routers import DefaultRouter
-from .views import PulseViewSet
+from .views import NotificationViewSet
 from django.urls import path, include
 
 router = DefaultRouter()
-router.register(r"", PulseViewSet, basename="pulse")
+router.register(r"", NotificationViewSet, basename="notification")
 
 urlpatterns = [
     path("", include(router.urls)),
