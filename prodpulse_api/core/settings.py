@@ -53,7 +53,7 @@ INSTALLED_APPS = [
     "apps.pulses",
     "apps.users",
     "apps.api",
-    "apps.analytics"
+    "apps.analytics",
     "rest_framework",
     "rest_framework_simplejwt",
     "rest_framework_simplejwt.token_blacklist",
