@@ -1,6 +1,56 @@
-__pycache__/
+# Byte-compiled / optimized / DLL files
 *.pyc
 .env
 # Ignore Pylance cache and metadata
 .pylance*
 .pyrightcache/
+
+prodpulse-api/.venv/
+
+# python bytecode and builds
+__pycache__/
+*.py[cod]
+* $py.class
+build/
+dist/
+*.egg-info/
+pip-wheel-metadata/
+
+# Django and database
+db.sqlite3
+*.sqlite3
+media/
+staticfiles/
+
+# Environments
+env/
+venv/
+ENV/
+.venv/
+.env
+.env.*.local
+
+#IDEs / Editors
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Testing and coverage
+.pytest_cache/
+.coverage
+htmlcov/
+coverage.xml
+nosetests.xml
+*.log
+
+# Docker
+*.env
+docker-compose.yml
+.docker-compose.override.yml
+docker-compose.override.*
