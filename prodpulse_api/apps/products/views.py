@@ -11,7 +11,16 @@ from rest_framework.views import APIView
 import httpx
 from apps.analytics.models import ProductView
 from django.db import models
+from django.contrib.postgres.search import SearchQuery, SearchRank
+from rest_framework.views import APIView
 
+class ProductListView(APIView):
+    def get(self, request):
+        return Response({"message": "Product list placeholder"})
+
+class ProductDetailView(APIView):
+    def get(self, request, pk):
+        return Response({"message": f"Product detail placeholder for {pk}"})
 
 def retrieve(self, request, *args, **kwargs):
     resp = super().retrieve(request, *args, **kwargs)
