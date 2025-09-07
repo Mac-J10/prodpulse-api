@@ -9,6 +9,8 @@ RUN apk add --no-cache \
     gcc \
     python3-dev \
     cargo
+# Copy application code
+COPY . /app
 
 # Set working directory
 WORKDIR /app
@@ -17,8 +19,6 @@ WORKDIR /app
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy application code
-COPY . .
 
 # Set environment variables (adjust as needed)
 ENV PATH=/root/.cargo/bin:/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin \
