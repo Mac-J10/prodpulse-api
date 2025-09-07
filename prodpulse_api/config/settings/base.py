@@ -9,6 +9,9 @@ STRIPE_API_KEY = os.getenv("STRIPE_API_KEY", "")
 env = environ.Env()
 environ.Env.read_env(env_file=os.path.join(os.path.dirname(__file__), '../../.env'))
 
+# Set the default Django settings module for the 'django' program.
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "config.settings")
+
 # Core settings
 SECRET_KEY = env('SECRET_KEY')
 DEBUG = env.bool('DEBUG', default=False)
