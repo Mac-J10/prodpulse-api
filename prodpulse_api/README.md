@@ -121,3 +121,16 @@ A modular, Django REST Framework–powered backend for managing users, organizat
    ```bash
    python manage.py runserver
    ```
+8. Access the API at `http://localhost:8000/api/`
+### 📁 App Breakdown
+
+| App Name         | Description                                                                 |
+|------------------|-----------------------------------------------------------------------------|
+| `analytics`      | Handles data aggregation, metrics tracking, and insights generation. Powers dashboards and operational reporting. |
+| `api`            | Serves as the public-facing interface for external integrations. Defines serializers, viewsets, and routing for RESTful access. |
+| `authentication` | Manages user login, registration, JWT tokens, and role-based access control. |
+| `notifications`  | Implements real-time alerts, email dispatch, and in-app messaging. Supports async delivery and user preferences. |
+| `orders`         | Manages order lifecycle, including creation, updates, and status tracking. Integrates with products and users. |
+| `products`       | Handles product catalog, inventory, and pricing logic. Supports CRUD operations and search. |
+| `pulses`         | Core feature module for tracking operational signals or events. Enables real-time monitoring and analytics. |
+| `users`          | Manages user profiles, preferences, and admin controls. Extends Django’s default user model with custom fields. |
