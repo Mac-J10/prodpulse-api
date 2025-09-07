@@ -2,7 +2,7 @@
 
 from .base import *
 
-DEBUG = True
+DEBUG = False
 
 # Allow all hosts for dev
 ALLOWED_HOSTS = ['*']
