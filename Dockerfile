@@ -9,11 +9,12 @@ RUN apk add --no-cache \
     gcc \
     python3-dev \
     cargo
-# Copy application code
-COPY . /app
 
 # Set working directory
 WORKDIR /app
+
+# Copy application code
+COPY . /app
 
 # Copy requirements and install Python dependencies
 COPY requirements.txt .
