@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ.get("SECRET_KEY", "django-insecure-f8lo6d=es)emp4qi^sxl0sx&azj!h21s5l6p6*6x@13omu+6g9")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get("DEBUG", "True") == "True"
+DEBUG = os.environ.get("DEBUG", "False") == "True"
 
 # Allow all hosts for Replit environment
 ALLOWED_HOSTS = ["*"]
@@ -84,11 +84,18 @@ SIMPLE_JWT = {
     "AUTH_HEADER_TYPES": ("Bearer",),
 }
 
-env = environ.Env()
-environ.Env.read_env()  # This loads the .env file
+env = environ.Env(
+    # you can declare types and defaults here too
+    DEBUG=(bool, False),
+)
+
+# 1) point to your .env (adjust the path if needed)
+environ.Env.read_env(env_file=".env")
 
 DATABASES = {
-    'default': env.db(),
+    'default': env.db(
+        default='sqlite:///db.sqlite3'
+    ),
 }
 
 
