@@ -14,7 +14,7 @@ RUN apk add --no-cache \
 WORKDIR /app
 
 # Copy application code
-COPY . /app
+COPY . .
 
 # Copy requirements and install Python dependencies
 COPY requirements.txt .
