@@ -3,6 +3,8 @@
 import os
 import environ
 
+STRIPE_API_KEY = os.getenv("STRIPE_API_KEY", "")
+
 # Load .env file
 env = environ.Env()
 environ.Env.read_env(env_file=os.path.join(os.path.dirname(__file__), '../../.env'))
