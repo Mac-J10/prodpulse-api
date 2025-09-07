@@ -2,8 +2,14 @@
 
 import os
 import environ
+from django.db import models
 
 STRIPE_API_KEY = os.getenv("STRIPE_API_KEY", "")
+
+class UserProfile(models.Model):
+    id = models.BigAutoField(primary_key=True)
+    # other fields...
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Load .env file
 env = environ.Env()
