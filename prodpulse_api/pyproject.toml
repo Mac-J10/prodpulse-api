@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "prodpulse-api"
+name = "prodpulse_api"
 version = "0.1.0"
 description = "A scalable, real-time Django API for product performance monitoring"
 authors = ["Mac-J10"]
@@ -28,11 +28,3 @@ ipython = "^8.24"
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
-
-[tool.poetry.packages]
-include = "prodpulse_api"
-from = "."
-  
-[[tool.poetry.packages]]
-include = "apps"
-from = "."
