@@ -27,6 +27,9 @@ INSTALLED_APPS = [
     'apps.products',
     'apps.orders',
     'apps.pulses',
+    'django_extensions',
+    'rest_framework',
+    'rest_framework_simplejwt',
 ]
 
 MIDDLEWARE = [
